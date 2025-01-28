@@ -15,7 +15,11 @@ class config {
             accessToken: process.env.ACCESS_TOKEN || null,
             origin: process.env.ORIGIN || '',
             methods: process.env.METHODS || '',
-            credentials: process.env.CREDENTIALS || ''
+            credentials: process.env.CREDENTIALS || '',
+            wa_phone_test: process.env.WA_PHONE_NUMBER_ID_TEST,
+            wa_api_access_token: process.env.CLOUD_API_ACCESS_TOKEN,
+            wa_version: process.env.CLOUD_API_VERSION,
+            wa_url: process.env.API_URL
         };
 
     }
