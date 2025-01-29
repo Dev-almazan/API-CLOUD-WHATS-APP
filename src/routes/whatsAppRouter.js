@@ -7,6 +7,6 @@ const router = express.Router();
 
 router.get('/', WhatsAppMiddleware.validateToken,WhatsAppController.confirmToken); // para verificar token de acceso
 router.post('/',WhatsAppMiddleware.validateMessage,WhatsAppController.recivedMessage);
-router.post('/send',WhatsAppController.sendMessage);
+router.post('/send',WhatsAppMiddleware.validatePropsMessage,WhatsAppController.sendMessage);
 
 export default router;

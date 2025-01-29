@@ -1,8 +1,4 @@
-
-
-
 import dotenv from 'dotenv';
-
 class config {
     constructor() {
         
@@ -16,10 +12,9 @@ class config {
             origin: process.env.ORIGIN || '',
             methods: process.env.METHODS || '',
             credentials: process.env.CREDENTIALS || '',
-            wa_phone_test: process.env.WA_PHONE_NUMBER_ID_TEST,
-            wa_api_access_token: process.env.CLOUD_API_ACCESS_TOKEN,
-            wa_version: process.env.CLOUD_API_VERSION,
-            wa_url: process.env.API_URL
+            wa_phone_test: process.env.WA_PHONE_NUMBER_ID_TEST || 0,
+            wa_api_access_token: process.env.CLOUD_API_ACCESS_TOKEN || '',
+            wa_url: process.env.API_URL || ''
         };
 
     }
@@ -37,6 +32,7 @@ class config {
     hasProperty(obj, prop) {
         return Object.prototype.hasOwnProperty.call(obj, prop);
     }
+
 }
 
 export default new config();

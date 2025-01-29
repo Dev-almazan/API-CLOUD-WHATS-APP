@@ -26,6 +26,10 @@ class WhatsAppMiddleware {
         res.status(200).send("EVENT_RECIVED");
         filesManager.registerLogs('./WhatsAppError.log', 'validateMessage', 'Property messages and  contacts : null')
     }
+
+    validatePropsMessage = (req, res, next) => {
+        next()
+    }
 }
 
 export default new WhatsAppMiddleware();
