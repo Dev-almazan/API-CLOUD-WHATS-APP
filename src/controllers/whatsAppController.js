@@ -6,8 +6,9 @@ import filesManager from '../controllers/files.js'
  class WhatsAppController {
   
   confirmToken(req,res) {
-    const { value } = req.body;
-    res.status(200).send(config.response("200", value , "accessToken"));
+    const challenge = req.query["hub.challenge"] ;
+    filesManager.registerLogs('./whatsApp.log', "confirmWebhook", `hub_challenge: ${challenge}`)
+    res.status(200).send(challenge);
   }
 
   recivedMessage(req, res){
@@ -21,7 +22,7 @@ import filesManager from '../controllers/files.js'
    sendMessage(req, res) {
      const url = `${config.envs.wa_url}/${config.envs.wa_phone_test}/messages`; 
      const { phone , message } = req.body;
-     WhatsAppController.postApi(url,config.envs.wa_api_access_token,WhatsAppController.setMessageText(phone,message),res);
+     WhatsAppController.postApi(url,config.envs.wa_api_access_token_test,WhatsAppController.setMessageText(phone,message),res);
    } 
 
    static setMessageText(phone,message){
