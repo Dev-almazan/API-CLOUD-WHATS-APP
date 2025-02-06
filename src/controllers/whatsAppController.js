@@ -12,11 +12,15 @@ import filesManager from '../controllers/files.js'
   }
 
   recivedMessage(req, res){
-    const { value  } = req.body;
-    let message = value.messages;
-    let contact = value.contacts;
-    filesManager.registerLogs('./whatsApp.log', "recivedMessage", `wa_id: ${contact[0].wa_id} , id_message :${message[0].id} , type : ${message[0].type == 'text' ? 'text' : 'Interactive' } `,"recivedMessage")
-    res.status(200).send(message)
+    const data = req.body;
+    const field = data.entry[0].changes[0].field ; //tipo de notificacion
+    const wa_id = data.entry[0].changes[0].value.contacts[0].wa_id ; //Identificador único del usuario de WhatsApp:
+    const phone_number_id = data.entry[0].changes[0].value.metadata.phone_number_id ;  //Identificador único de tu número de teléfono de negocio:
+    const message = data.entry[0].changes[0].value.messages[0].text.body ; //detalle del mensaje
+    const messageType = data.entry[0].changes[0]?.value.messages[0].type ;
+    
+    filesManager.registerLogs('./whatsApp.log', "recivedMessage", `New message : wa_id : ${wa_id} , phone_number_id :  ${phone_number_id}, message : ${message},  messageType : ${messageType},field : ${field}  `)
+    res.status(200).send("EVENT_RECIVED");
   }
 
    sendMessage(req, res) {

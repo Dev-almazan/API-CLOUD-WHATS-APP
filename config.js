@@ -14,7 +14,8 @@ class config {
             credentials: process.env.CREDENTIALS || '',
             wa_phone_test: process.env.WA_PHONE_NUMBER_ID_TEST || 0,
             wa_api_access_token_test: process.env.CLOUD_API_ACCESS_TOKEN_TEST || null,
-            wa_url: process.env.API_URL || ''
+            wa_url: process.env.API_URL || '',
+            wa_account: process.env.WA_ACCOUNT || '',
         };
 
     }
