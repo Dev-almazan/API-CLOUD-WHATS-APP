@@ -7,29 +7,37 @@ class WhatsAppMiddleware {
 
   
     validateToken = (req, res, next) => {
-       
-            let accessToken = config.envs.accessToken;
-            const { hub } = req.body;
-            if (hub) {
-                next();
+            const mode = req.query["hub.mode"] ? req.query["hub.mode"] : false;
+            const token = req.query["hub.verify_token"] ? req.query["hub.verify_token"] : false;
+            const challenge = req.query["hub.challenge"] ? req.query["hub.challenge"] : false ;
+
+            if(mode && challenge && token) {
+                if (token == config.envs.accessToken)
+                {
+                    next();
+                }
+                filesManager.registerLogs('./WhatsAppError.log', 'validateToken', 'Access token invalid')
+                res.status(200).send("EVENT_RECIVED");
             }
+            filesManager.registerLogs('./WhatsAppError.log', 'validateToken', 'Propertys hub: null');
             res.status(200).send("EVENT_RECIVED");
-            filesManager.registerLogs('./WhatsAppError.log', 'validateToken', 'Property hub: null')
     }
 
 
-    validateMessage = (req, res, next) => {
-        const { value, field } = req.body;
-        if(value && field) {
-            next();
+    validateNotification = (req,res,next) => {
+        //validamos que la solicitud no venga vacia
+        if (Object.keys(req.body).length !== 0) 
+        {
+            const { entry = null } = req.body ? req.body : [];
+            if(entry) //si existe el objeto entidad
+            {
+                next()
+            }
+           return res.status(400).send({ 'status': 'error', 'message': 'El cuerpo de la petición esta vacio' })
         }
-        res.status(200).send("EVENT_RECIVED");
-        filesManager.registerLogs('./WhatsAppError.log', 'validateMessage', 'Property messages and  contacts : null')
+        return res.status(400).send({ 'status': 'error', 'message': 'El cuerpo de la petición esta vacio' })
     }
 
-    validatePropsMessage = (req, res, next) => {
-        next()
-    }
 }
 
 export default new WhatsAppMiddleware();

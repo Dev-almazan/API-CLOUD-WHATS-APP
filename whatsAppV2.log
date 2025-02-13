@@ -1,0 +1,9 @@
+[2025-02-13T18:57:59.741Z]  recivedMessage:  New message : wa_id : <WHATSAPP_USER_ID> , phone_number_id :  <BUSINESS_PHONE_NUMBER_ID>, message : Hola esta es una prueba,  messageType : text,field : messages  
+[2025-02-13T19:04:51.243Z]  recivedMessage:  New message : wa_id : <WHATSAPP_USER_ID> , phone_number_id :  <BUSINESS_PHONE_NUMBER_ID>, message : Hola esta es una prueba,  messageType : text,field : messages  
+[2025-02-13T19:07:04.341Z]  recivedMessage:  New message : wa_id : <WHATSAPP_USER_ID> , phone_number_id :  <BUSINESS_PHONE_NUMBER_ID>, message : Hola esta es una prueba,  messageType : text,field : messages  
+[2025-02-13T19:08:07.887Z]  recivedMessage:  New message : wa_id : <WHATSAPP_USER_ID> , phone_number_id :  <BUSINESS_PHONE_NUMBER_ID>, message : Hola esta es una prueba,  messageType : text,field : messages  
+[2025-02-13T19:08:09.117Z]  recivedMessage:  New message : wa_id : <WHATSAPP_USER_ID> , phone_number_id :  <BUSINESS_PHONE_NUMBER_ID>, message : Hola esta es una prueba,  messageType : text,field : messages  
+[2025-02-13T19:09:13.272Z]  recivedMessage:  New message : wa_id : 22 , phone_number_id :  1111, message : Hola esta es una prueba,  messageType : text,field : messages  
+[2025-02-13T19:09:15.351Z]  recivedMessage:  New message : wa_id : 22 , phone_number_id :  1111, message : Hola esta es una prueba,  messageType : text,field : messages  
+[2025-02-13T19:12:21.647Z]  recivedMessage:  New message : wa_id : 22 , phone_number_id :  eee, message : Hola esta es una prueba,  messageType : text,field : messages  
+[2025-02-13T19:12:36.497Z]  recivedMessage:  New message : wa_id : 22 , phone_number_id :  22, message : Hola esta es una prueba,  messageType : text,field : messages  

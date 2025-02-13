@@ -6,6 +6,7 @@ class config {
         this.dotenv.config();
 
         this.envs = {
+            db: process.env.DB_URI || '',
             port: process.env.PORT || 0,
             userToken: process.env.USER_TOKEN || null,
             accessToken: process.env.ACCESS_TOKEN || null,
@@ -13,7 +14,7 @@ class config {
             methods: process.env.METHODS || '',
             credentials: process.env.CREDENTIALS || '',
             wa_phone_test: process.env.WA_PHONE_NUMBER_ID_TEST || 0,
-            wa_api_access_token: process.env.CLOUD_API_ACCESS_TOKEN || '',
+            wa_api_access_token_test: process.env.CLOUD_API_ACCESS_TOKEN_TEST || null,
             wa_url: process.env.API_URL || ''
         };
 
