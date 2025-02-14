@@ -1,3 +1,4 @@
+import { error } from "console";
 import mongoose from "mongoose";
 
 class userModel {
@@ -5,9 +6,11 @@ class userModel {
         this.uri = process.env.DB_URI || "";
         this.db = null;
         this.model = mongoose.model(colletion, new mongoose.Schema({
-            wa_id: { type: Number, required: true },
-            phone_number_id: { type: Number, required: true },
-
+            company_number: { type: Number, required: true },
+            company_number_id: { type: Number, required: true },
+            client_number_id: { type: Number, required: true },
+            client_username: { type: String, required: true },
+            messages: { type: Array, required: true }
         }));
         this.connect();
     }
@@ -21,73 +24,47 @@ class userModel {
             this.db = false;
         }
     }
-    // Método para tarenos usuarios
-    async getData() {
-        try {
-            const users = await this.model.find().select('usuario ');
-            return users;
-        } catch (err) {
-            console.log(err);
-            return false;
-        }
-    }
-
-    async getUser(query) {
-        try {
-            // Busca el usuario en la base de datos
-            const user = await this.model.findOne(query);
-            // Si el usuario existe, lo devuelve
-            if (user) {
-                return user;
-            }
-            // Si no existe, devuelve null
-            return null;
-        } catch (err) {
-            // Registra el error en un sistema de logging (en lugar de console.log)
-            console.error('Error en getUser:', err);
-            // Lanza una excepción para que el controlador pueda manejarla
-            throw new Error('Error al buscar el usuario en la base de datos');
-        }
-    } 
-
-    async getUser(id) {
-        try {
-            const result = await this.model.findOne({ 'wa_id': id });
-
-            if (result) {
-                return result;
-            }
-            else {
-                return 'no se enco'
-            }
-        } catch (err) {
-            console.log(err);
-            return 'e';
-        }
-    }
 
     // Método para insertar usuarios
-    async postData(datos) {
+    async insertOrUpdateData(client_number_id,data) {
+
         try {
-            return await this.model(datos).save();
+            //buscamos usuario
+            const searchUser = await this.model.findOne({ 'client_number_id': client_number_id });
+            // si ya existe el usuario hacer un update de la propiead message
+            if (searchUser) {
+                const resultado = await this.model.findByIdAndUpdate(
+                    searchUser._id, // ID del documento
+                    { $push: { messages: data.messages } }, // Agregar el nuevo mensaje
+
+                );
+                if(resultado)
+                {
+                    return 'actualizado';
+                }
+                else
+                {
+                    return false
+                }
+            }
+            else {
+                // si no existe guardar el dato
+                await this.model(data).save();
+                return 'creado';
+            }
         } catch (err) {
-            return err;
+            // Manejar errores específicos
+            if (err.name === 'ValidationError') {
+                console.log(err.message)
+            } else {
+                console.log(err)
+            }
+            return false;
         }
+
     }
 
-  
 
-    async updateUser(id,datos) {
-        try {
-            return await this.model.findByIdAndUpdate(
-                id,
-                { $set: { auth: datos } }, 
-                { new: true } 
-            );
-        } catch (err) {
-            return err;
-        }
-    }
 }
 
 export default new userModel('users');
