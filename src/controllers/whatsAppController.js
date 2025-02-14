@@ -12,6 +12,7 @@ import userModel from '../models/user.js';
     res.status(200).send(challenge);
   }
 
+<<<<<<< HEAD
       async  recivedMessage(req, res) {
         const data = req.body;
         const wa = data.entry?.[0]?.changes?.[0]?.value?.contacts?.[0]?.wa_id;
@@ -35,6 +36,19 @@ import userModel from '../models/user.js';
           return res.status(500).json({ 'status': 'error', 'message': 'Error interno del servidor' });
         }
       }
+=======
+  recivedMessage(req, res){
+    const data = req.body;
+    const field = data.entry[0].changes[0].field ; //tipo de notificacion
+    const wa_id = data.entry[0].changes[0].value.contacts[0].wa_id ; //Identificador único del usuario de WhatsApp:
+    const phone_number_id = data.entry[0].changes[0].value.metadata.phone_number_id ;  //Identificador único de tu número de teléfono de negocio:
+    const message = data.entry[0].changes[0].value.messages[0].text.body ; //detalle del mensaje
+    const messageType = data.entry[0].changes[0]?.value.messages[0].type ;
+    
+    filesManager.registerLogs('./whatsApp.log', "recivedMessage", `New message : wa_id : ${wa_id} , phone_number_id :  ${phone_number_id}, message : ${message},  messageType : ${messageType},field : ${field}  `)
+    res.status(200).send("EVENT_RECIVED");
+  }
+>>>>>>> 8829c0e6604e07ae4c7609b3afe2f05b0a2f5e38
 
    sendMessage(req, res) {
      const url = `${config.envs.wa_url}/${config.envs.wa_phone_test}/messages`; 
